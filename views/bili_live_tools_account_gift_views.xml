@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="bili_live_tools_account_gift_view_tree" model="ir.ui.view">
+            <field name="name">bili_live_tools.account_gift.view_tree</field>
+            <field name="model">bili_live_tools.account_gift</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="账户礼物">
+                    <field name="account_id"/>
+                    <field name="amount"/>
+                    <field name="gift_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="bili_live_tools_account_gift_view_form" model="ir.ui.view">
+            <field name="name">bili_live_tools.account_gift.view_form</field>
+            <field name="model">bili_live_tools.account_gift</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="账户礼物" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="account_id"/>
+                            <field name="amount"/>
+                            <field name="gift_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="bili_live_tools_account_gift_action_83" model="ir.actions.act_window">
+            <field name="name">账户礼物</field>
+            <field name="res_model">bili_live_tools.account_gift</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+
+
+        </record>
+
+        <menuitem action="bili_live_tools_account_gift_action_83" id="bili_live_tools_account_gift_menuitem_70"
+                  name="账户礼物" parent="bili_live_tools.parent_menu_68" sequence="3"/>
+
+    </data>
+</openerp>

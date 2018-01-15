@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <menuitem id="parent_menu_68" name="哔哩哔哩" parent="" sequence="0" icon=""/>
+    </data>
+</openerp>

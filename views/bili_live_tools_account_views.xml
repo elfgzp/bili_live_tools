@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="bili_live_tools_account_view_tree" model="ir.ui.view">
+            <field name="name">bili_live_tools.account.view_tree</field>
+            <field name="model">bili_live_tools.account</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="账号">
+                    <field name="login"/>
+                    <field name="name" attrs="{'invisible': [('status', '!=', 'logged')]}"/>
+                    <field name="status"/>
+                    <field name="gold_seed"/>
+                    <field name="silver_seed"/>
+                    <field name="account_gift_total"/>
+                </tree>
+            </field>
+        </record>
+        <record id="bili_live_tools_account_view_form" model="ir.ui.view">
+            <field name="name">bili_live_tools.account.view_form</field>
+            <field name="model">bili_live_tools.account</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="账号" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="login"/>
+                            <field name="password"/>
+                            <field name="cookies"/>
+                            <field name="sub_account"/>
+                            <field name="name" attrs="{'invisible': [('status', '!=', 'logged')]}"/>
+                            <field name="status" readonly="1"/>
+                            <field name="gold_seed" readonly="1"/>
+                            <field name="silver_seed" readonly="1"/>
+                            <field name="account_gift_ids" readonly="1">
+                                <tree>
+                                    <field name="gift_id"/>
+                                    <field name="amount"/>
+                                    <field name="residue_time"/>
+                                    <button name="send_selected_gift" string="赠送" type="object" class="oe_highlight"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_server_account_update_status" model="ir.actions.server">
+            <field name="name">刷新账户状态</field>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_bili_live_tools_account"/>
+            <field name="sequence">0</field>
+            <field name="state">code</field>
+            <field name="code">action = records.update_status()</field>
+        </record>
+
+        <record model="ir.values" id="add_action_server_account_update_status">
+            <field name="name">action_server_account_update_status</field>
+            <field name="action_id" ref="action_server_account_update_status"/>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_server_account_update_status'))"/>
+            <field name="key">action</field>
+            <field name="model_id" ref="model_bili_live_tools_account"/>
+            <field name="model">bili_live_tools.account</field>
+            <field name="key2">client_action_multi</field>
+        </record>
+
+        <record id="action_server_clean_gift" model="ir.actions.server">
+            <field name="name">清空背包</field>
+            <field name="condition">True</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_bili_live_tools_account"/>
+            <field name="state">code</field>
+            <field name="code">action = records.clean_gift_wizard()</field>
+        </record>
+
+        <record model="ir.values" id="action_clean_gift">
+            <field name="name">action_clean_gift</field>
+            <field name="action_id" ref="action_server_clean_gift"/>
+            <field name="value" eval="'ir.actions.server,' + str(ref('action_server_clean_gift'))"/>
+            <field name="key">action</field>
+            <field name="model_id" ref="model_bili_live_tools_account"/>
+            <field name="model">bili_live_tools.account</field>
+            <field name="key2">client_action_multi</field>
+        </record>
+
+        <record id="bili_live_tools_account_action_82" model="ir.actions.act_window">
+            <field name="name">账号</field>
+            <field name="res_model">bili_live_tools.account</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem action="bili_live_tools_account_action_82" id="bili_live_tools_account_menuitem_69" name="账号"
+                  parent="bili_live_tools.parent_menu_68" sequence="1"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+id_access_bili_live_tools_account,name_access_bili_live_tools_account,model_bili_live_tools_account,,1,1,1,1
+id_access_bili_live_tools_account_gift,name_access_bili_live_tools_account_gift,model_bili_live_tools_account_gift,,1,1,1,1
+id_access_bili_live_tools_gift,name_access_bili_live_tools_gift,model_bili_live_tools_gift,,1,1,1,1
+id_access_bili_live_tools_raffle,name_access_bili_live_tools_raffle,model_bili_live_tools_raffle,,1,1,1,1

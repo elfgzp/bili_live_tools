@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="bili_live_tools_raffle_view_tree" model="ir.ui.view">
+            <field name="name">bili_live_tools.raffle.view_tree</field>
+            <field name="model">bili_live_tools.raffle</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="抽奖">
+                    <field name="account_id"/>
+                    <field name="amount"/>
+                    <field name="checked"/>
+                    <field name="get_raffle_time"/>
+                    <field name="gift_from"/>
+                    <field name="gift_id"/>
+                    <field name="raffle_extend_id"/>
+                    <field name="raffle_time"/>
+                    <field name="room_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="bili_live_tools_raffle_view_form" model="ir.ui.view">
+            <field name="name">bili_live_tools.raffle.view_form</field>
+            <field name="model">bili_live_tools.raffle</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="抽奖" version="7.0">
+                    <sheet>
+                        <group>
+                            <field name="account_id"/>
+                            <field name="amount"/>
+                            <field name="checked"/>
+                            <field name="get_raffle_time"/>
+                            <field name="gift_from"/>
+                            <field name="gift_id"/>
+                            <field name="raffle_extend_id"/>
+                            <field name="raffle_time"/>
+                            <field name="room_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="bili_live_tools_raffle_action_135" model="ir.actions.act_window">
+            <field name="name">抽奖</field>
+            <field name="res_model">bili_live_tools.raffle</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem action="bili_live_tools_raffle_action_135" id="bili_live_tools_raffle_menuitem_76" name="抽奖"
+                  parent="bili_live_tools.parent_menu_68" sequence="4"/>
+
+    </data>
+</openerp>
