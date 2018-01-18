@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import logging
 import datetime
 import requests
 import time
@@ -14,6 +15,8 @@ from .. import ocr
 from ..utils import get_proxy, get_room_info, QUERY_FREE_SILVER, CAPTCHA_URL, \
     GET_FREE_SILVER, TV_URL, QUERY_RAFFLE_URL, \
     RAFFLE_URL
+
+_logger = logging.getLogger(__name__)
 
 
 class Account(models.Model):
@@ -83,22 +86,28 @@ class Account(models.Model):
         kwargs = dict(url=url, method=method, params=params, data=data, headers=headers, timeout=5)
         proxy = get_proxy()
         try_times = 0
-        while proxy and proxy_times > try_times:
-            proxy_times += 1
-            kwargs['proxies'] = {'http': 'http://%s' % proxy, 'https': 'https://%s' % proxy}
-            try:
-                response = requests.request(**kwargs)
-            except:
-                proxy = get_proxy()
-            else:
-                if response.status_code != 200:
+        try:
+            while proxy and proxy_times > try_times:
+                proxy_times += 1
+                kwargs['proxies'] = {'http': 'http://%s' % proxy, 'https': 'https://%s' % proxy}
+                try:
+                    response = requests.request(**kwargs)
+                except:
                     proxy = get_proxy()
                 else:
-                    break
+                    if response.status_code != 200:
+                        proxy = get_proxy()
+                    else:
+                        break
+            else:
+                kwargs['proxies'] = None
+                response = requests.request(**kwargs)
+        except Exception as e:
+            _logger.exception(e)
+            return {}
         else:
-            kwargs['proxies'] = None
-            response = requests.request(**kwargs)
-        return response.json() if response.status_code == 200 else {'code': -1, 'msg': '', 'data': []}
+            _logger.info(response.json())
+            return response.json() if response.status_code == 200 else {'code': -1, 'msg': '', 'data': []}
 
     def cookies_dict(self):
         cookies_dict = {}
