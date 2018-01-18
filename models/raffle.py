@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import json
 from odoo import models, fields, api
 from ..utils import RAFFLE_NOTICE_URL
 
@@ -17,6 +18,7 @@ class Raffle(models.Model):
     gift_from = fields.Char()
     raffle_time = fields.Datetime('抽奖时间')
     get_raffle_time = fields.Datetime('获奖时间')
+    raffle_response = fields.Char('抽奖结果')
     checked = fields.Boolean('已开奖', index=True, default=False)
 
     @api.model
@@ -46,6 +48,7 @@ class Raffle(models.Model):
                 'raffleId': each_record.raffle_extend_id
             }
             r = each_record.account_id.request(RAFFLE_NOTICE_URL, 'GET', params=params)
+            update_dict = {'raffle_response': json.dumps(r)}
             if r and r['data']:
                 if r['data']['gift_id'] > 0:
                     each_record.get_raffle(
@@ -56,7 +59,10 @@ class Raffle(models.Model):
                         gift_from=r['data']['gift_from']
                     )
                 elif r['data']['gift_id'] == -1:
-                    each_record.write({'checked': True})
+                    update_dict.update({'checked': True})
+
+            each_record.write(update_dict)
+            self.env.cr.commit()
 
     def get_raffle(self, gift_extend_id, gift_name, gift_type, amount, gift_from):
         gift = self.env['bili_live_tools.gift'].search([

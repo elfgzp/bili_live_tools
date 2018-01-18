@@ -37,6 +37,7 @@
                             <field name="raffle_extend_id"/>
                             <field name="raffle_time"/>
                             <field name="room_id"/>
+                            <field name="raffle_response"/>
                         </group>
                     </sheet>
                 </form>

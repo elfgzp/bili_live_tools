@@ -11,7 +11,7 @@ class RaffleJoin(http.Controller):
     def get(self, account_id, room_id, raffle_extend_id):
         try:
             request.env['bili_live_tools.raffle'].join_raffle(account_id, room_id, raffle_extend_id)
-        except:
+        except Exception as e:
             return json.dumps({'success': 0})
         else:
             return json.dumps({'success': 1})
