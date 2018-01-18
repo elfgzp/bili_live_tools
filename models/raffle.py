@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 
+import logging
 import json
 from odoo import models, fields, api
 from ..utils import RAFFLE_NOTICE_URL
+
+_logger = logging.getLogger(__name__)
 
 
 class Raffle(models.Model):
@@ -48,6 +51,7 @@ class Raffle(models.Model):
                 'raffleId': each_record.raffle_extend_id
             }
             r = each_record.account_id.request(RAFFLE_NOTICE_URL, 'GET', params=params)
+            _logger.info(r)
             update_dict = {'raffle_response': json.dumps(r)}
             if r and r['data']:
                 if r['data']['gift_id'] > 0:
